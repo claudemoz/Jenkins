@@ -13,6 +13,7 @@ pipeline {
                 echo "BRANCH_NAME: ${env.BRANCH_NAME}"
                 echo "CI: ${env.CI}"
                 echo "MY_NAME: ${env.MY_NAME}"
+                sh 'printenv'
             }
         }
         stage('Test') {
