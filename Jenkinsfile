@@ -3,21 +3,22 @@ pipeline {
     stages {
         stage('Build et Test') {
             steps {
-                echo 'Build et Test'
+                echo "Construire et tester l'application."
             }
         }
-        stage('Déploiement en Production') {
-            input {
-                message "Voulez-vous déployer en production ?"
-                ok "Oui, déployons."
-                submitter "admin,devops"
-                parameters {
-                    string(name: 'VERSION', defaultValue: 'latest', description: 'Quelle version souhaitez-vous déployer ?')
+        stage('Déploiement parallèle') {
+            failFast true
+            parallel {
+                stage('Déploiement Dev') {
+                    steps {
+                        echo "Déploiement en environnement de développement."
+                    }
                 }
-            }
-            steps {
-                echo "Déploiement de la version ${VERSION} en production."
-                // Votre code pour le déploiement
+                stage('Déploiement Staging') {
+                    steps {
+                        echo "Déploiement en environnement de préproduction."
+                    }
+                }
             }
         }
     }
