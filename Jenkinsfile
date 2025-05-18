@@ -1,29 +1,20 @@
 pipeline {
     agent any
-
-    environment{
-      MY_NAME = 'claude'
+    parameters {
+        string(name: 'PERSONNE', defaultValue: 'M. Jenkins', description: 'À qui devrais-je dire bonjour ?')
+        text(name: 'BIOGRAPHIE', defaultValue: '', description: 'Entrez des informations sur la personne')
+        booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Activez cette valeur')
+        choice(name: 'CHOIX', choices: ['Un', 'Deux', 'Trois'], description: 'Faites un choix')
+        password(name: 'MOT_DE_PASSE', defaultValue: 'SECRET', description: 'Entrez un mot de passe')
     }
     stages {
-        stage('Build') {
+        stage('Exemple') {
             steps {
-                echo "BUILD_ID: ${env.BUILD_ID}"
-                echo "BUILD_NUMBER: ${env.BUILD_NUMBER}"
-                echo "JENKINS_URL: ${env.JENKINS_URL}"
-                echo "BRANCH_NAME: ${env.BRANCH_NAME}"
-                echo "CI: ${env.CI}"
-                echo "MY_NAME: ${env.MY_NAME}"
-                sh 'printenv'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
+                echo "Bonjour ${PERSONNE}"
+                echo "Biographie : ${BIOGRAPHIE}"
+                echo "Toggle : ${TOGGLE}"
+                echo "Choix : ${CHOIX}"
+                echo "Mot de passe : ${MOT_DE_PASSE}"
             }
         }
     }
