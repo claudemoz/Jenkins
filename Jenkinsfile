@@ -1,33 +1,12 @@
 pipeline {
-    agent none
+    agent any
+    tools{
+        nodejs 'node24'
+    }
     stages {
-        stage('BuildAndTest') {
-            matrix {
-                agent {
-                    label "${PLATFORM}-agent"
-                }
-                axes {
-                    axis {
-                        name 'PLATFORM'
-                        values 'linux', 'windows', 'mac'
-                    }
-                    axis {
-                        name 'BROWSER'
-                        values 'firefox', 'chrome', 'safari', 'edge'
-                    }
-                }
-                stages {
-                    stage('Build') {
-                        steps {
-                            echo "construire pour ${PLATFORM} - ${BROWSER}"
-                        }
-                    }
-                    stage('Test') {
-                        steps {
-                            echo "tester pour ${PLATFORM} - ${BROWSER}"
-                        }
-                    }
-                }
+        stage('Build') {
+            steps {
+                sh "node -v"
             }
         }
     }
