@@ -8,7 +8,7 @@ pipeline {
             }
             post{
                 success{
-                    emailext(to: 'claudetsiangana@gmail.com', body: 'test body', subject: 'test subject')
+                    emailext(to: 'claudetsiangana@gmail.com', body: '$DEFAULT_CONTENT', subject: '$DEFAULT_SUBJECT')
                 }
             }
         }
