@@ -1,12 +1,15 @@
 pipeline {
     agent any
-    tools{
-        nodejs 'node24'
-    }
+    
     stages {
         stage('Build') {
             steps {
-                sh "node -v"
+                echo 'Hello'
+            }
+            post{
+                success{
+                    emailext(to: 'claudetsiangana@gmail.com', body: 'test body', subject: 'test subject')
+                }
             }
         }
     }
